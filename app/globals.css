@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Instrument+Serif:ital@1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #000000;
+  --text: #ffffff;
+  --muted: #9a9a9a;
+  --stat: #d8d8d8;
+  --border: rgba(255, 255, 255, 0.16);
+  --border-soft: rgba(255, 255, 255, 0.12);
+  --metal-border: rgba(198, 198, 198, 0.55);
+
+  --logo: 15.5px;
+  --logo-mark: 22px;
+  --nav: 13.5px;
+  --nav-h: 40px;
+  --btn: 13.5px;
+  --btn-h: 40px;
+  --hero-btn-h: 42px;
+  --h1: 48px;
+  --lede: 15.5px;
+  --badge: 12.5px;
+  --stat-size: 13.5px;
+  --header-y: 20px;
+  --header-x: 32px;
+  --stats-x: 64px;
+  --stats-y: 32px;
+  --hero-gap: 64px;
+}
+
+html, body {
+  background: #000000 !important;
+  color: #ffffff !important;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Layer stack: Grain & Ambient Background */
+.grain {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+.hero-photo {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle at 50% 45%, rgba(45, 52, 68, 0.4) 0%, rgba(18, 22, 30, 0.25) 35%, rgba(0, 0, 0, 0.95) 75%, #000000 100%);
+  animation: in-soft 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+}
+
+.hero-photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, transparent 40%, #000000 95%);
+  pointer-events: none;
+}
+
+/* Navigation - Liquid Metal Pills */
+.nav-pill {
+  height: var(--nav-h);
+  padding: 0 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(198, 198, 198, 0.45);
+  background: linear-gradient(105deg, #050505 0%, #202020 48%, #383838 100%);
+  color: #ededed;
+  font-size: var(--nav);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.22) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.nav-pill:hover::before {
+  transform: translateX(120%);
+}
+
+.nav-pill:hover {
+  border-color: rgba(240, 240, 240, 0.85);
+  background: linear-gradient(105deg, #101010 0%, #303030 45%, #555555 100%);
+  box-shadow: 0 0 18px rgba(200, 215, 240, 0.2);
+  color: #ffffff;
+}
+
+.nav-pill-active {
+  border-color: rgba(255, 255, 255, 0.9) !important;
+  background: linear-gradient(105deg, #181818 0%, #383838 48%, #606060 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Liquid Glass Buttons */
+.btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--btn-h);
+  padding: 0 16px;
+  border-radius: 8px;
+  font-size: var(--btn);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.5) 48%, transparent 76%);
+  transform: translateX(-130%);
+  transition: transform 0.65s ease;
+}
+
+.btn:hover::after {
+  transform: translateX(130%);
+}
+
+.btn-solid {
+  background: linear-gradient(180deg, #ffffff 0%, #e7e7e7 48%, #cfcfcf 100%);
+  color: #0c0c0c;
+  border: 1px solid #ffffff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+.btn-solid:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f6ff 42%, #d5def2 100%);
+  border-color: #f2f6ff;
+  box-shadow: inset 0 1px 0 #ffffff, 0 0 24px rgba(186, 208, 255, 0.4), 0 8px 18px rgba(255, 255, 255, 0.12);
+  color: #0c0c0c;
+  transform: translateY(-1px);
+}
+
+.btn-ghost-hero {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.6) 46%, rgba(150, 170, 200, 0.1));
+  color: #ffffff;
+  border: 1px solid rgba(198, 198, 198, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.btn-ghost-hero:hover {
+  background: linear-gradient(135deg, rgba(210, 225, 255, 0.2), rgba(0, 0, 0, 0.45) 48%, rgba(180, 195, 220, 0.18));
+  border-color: rgba(230, 235, 255, 0.85);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 24px rgba(170, 200, 255, 0.3);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Badge (Google AI Studio star-pill) */
+.badge-star-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #666666 0%, #222222 52%, #0a0a0a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #f2f2f2;
+  font-size: var(--badge);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+/* Headline with Editorial Serif Accent */
+.headline-serif-em em {
+  font-family: "Instrument Serif", "Times New Roman", Times, Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.1em;
+  letter-spacing: -0.02em;
+  color: #b0b0b0;
+  display: inline-block;
+  padding: 0 0.15em;
+}
+
+/* Obsidian Glass Panels */
+.glass-panel {
+  background: rgba(10, 10, 12, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(16, 16, 20, 0.9);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.8), 0 0 24px rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.glass-card {
+  background: rgba(14, 14, 16, 0.65);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Bottom Stats Ticker */
+.stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: var(--stat-size);
+  letter-spacing: -0.015em;
+  color: #d8d8d8;
+}
+
+/* Animations */
+.appear {
+  opacity: 1;
+  animation-duration: 1.05s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes in-scale {
+  0% { opacity: 0; transform: scale(0.86); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes in-soft {
+  0% { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes in-mask {
+  0% { opacity: 0; transform: translateY(40%); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes in-btn {
+  0% { opacity: 0; transform: translateY(18px) scale(0.95); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes in-stat {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.appear--scale { animation-name: in-scale; }
+.appear--soft { animation-name: in-soft; }
+.appear--mask { animation-name: in-mask; }
+.appear--btn { animation-name: in-btn; }
+.appear--stat { animation-name: in-stat; }
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a4a4a;
+}
